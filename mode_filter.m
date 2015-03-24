@@ -35,7 +35,9 @@ function gr = mode_filter(image)
                     modeValue = vector(i);
                 end
             end
-            gr(l,p) = modeValue;
+            if(modeValue > -1) 
+                gr(l,p) = modeValue;
+            end
         end
     end
 end
