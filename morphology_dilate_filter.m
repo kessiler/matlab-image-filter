@@ -1,40 +1,19 @@
-function gr = morphology_dilate_filter(image, se)
-if(nargin == 1)
-    se = [0 1 0; 1 1 1; 0 1 0];
-    center1 = [2, 2];
-else
-    [rse,cse] = size(se);
-    center1 = [ceil(rse/2),ceil(cse/2)];
-end
+function gr = morphology_dilate_filter(image)
 
-% determine the SE coordinates.
-[xse, yse] = find(se==1);
-nse = size(xse, 1);
-if nse > 0
-    xse = xse - center1(1);
-    yse = yse - center1(2);
-end
-% pad image
-[rse,cse] = size(se);
-[r,c]=size(image);
-row=r+rse-1;
-col=c+cse-1;
-aux = zeros(row, col);
-aux(center1(1):center1(1)+r-1, center1(2):center1(2)+c-1) = image;
-image = aux;
-clear aux;
+	gr = image;
 
-gr=zeros(row,col);
+    Lint = 1;
+	Pint = 1;
 
-for i=center1(1):center1(1)+r-1
-    for j=center1(2):center1(2)+c-1
-        if image(i,j) == 1
-            for k=1:nse
-                gr(i+xse(k), j+yse(k)) = 1;
-            end
+	% Lines
+	for l = Lint+1 : size(image,1)-Lint
+        % Pixels
+        for p = Pint+1 : size(image,2)-Pint
+            % Extract of sub-image (window)
+            window = image(l-Lint : l+Lint, p-Pint : p+Pint);
+            % Search the max value in the window
+            maxValue = max(max(window));
+            gr(l,p) = maxValue;
         end
     end
-end
-
-gr = gr(center1(1):center1(1)+r-1 , center1(2):center1(2)+c-1);
 end
