@@ -1,7 +1,7 @@
-matlab-image-filter
+Digital Image Processing Algorithms in MATLAB
 =========
 
-This repository contains algorithms created in MATLAB as practical work of PDI.
+This repository contains algorithms created in MATLAB as practical work of DIP.
 The following filters have been implemented:
 
   > **Lowpass linear filters:**
